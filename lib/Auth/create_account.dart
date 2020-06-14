@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_ecommerce_v1/Classes/User.dart';
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/Classes/User.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 import '../Auth/login.dart';
 
 class CreateAccount extends StatefulWidget{
@@ -92,6 +92,7 @@ class CreateAccountState extends State<CreateAccount>{
                   SizedBox(height: 20,),
                   // password
                   TextFormField(
+                    obscureText: true,
                     decoration: InputDecoration(labelText: 'Password'),
                     validator: (value){
                       if(value.isEmpty){

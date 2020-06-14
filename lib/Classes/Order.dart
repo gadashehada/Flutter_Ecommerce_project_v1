@@ -1,9 +1,9 @@
 import '../DBHelper.dart';
 
 class Order{
-  int orderId;
-  int orderUserId;
-  int orderProductId;
+  String orderId;
+  String orderUserId;
+  String orderProductId;
   String orderAddress;
   bool isAccept;
   bool isConfirmed;
@@ -23,6 +23,7 @@ class Order{
 
   Map<String , dynamic> toMap(){
     return {
+      DBHelper.orderId : this.orderId ,
       DBHelper.orderUserId : this.orderUserId ,
       DBHelper.orderProductId : this.orderProductId ,
       DBHelper.orderIsAccepted : this.isAccept? 1:0 ,

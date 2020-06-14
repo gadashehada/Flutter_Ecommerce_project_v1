@@ -1,8 +1,8 @@
 import '../DBHelper.dart';
 
 class Address{
-  int addressId;
-  int addressUserId;
+  String addressId;
+  String addressUserId;
   String address;
   String city;
   String phoneNumber;

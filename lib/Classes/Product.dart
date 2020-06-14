@@ -1,4 +1,4 @@
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 
 class Product{
   String productName;
@@ -6,8 +6,8 @@ class Product{
   String productCategory;
   String productDescription;
   String imageBased64;
-  int productId;
-  int merchantId;
+  String productId;
+  String merchantId;
 
   Product({this.productName , this.productPrice , this.productCategory , this.productDescription , this.imageBased64 , this.productId , this.merchantId});
 
@@ -24,6 +24,7 @@ class Product{
 
   Map<String , dynamic> toMap(){
     return {
+      DBHelper.productId : this.productId ,
       DBHelper.productName : this.productName ,
       DBHelper.productPrice : this.productPrice ,
       DBHelper.productCategory : this.productCategory ,

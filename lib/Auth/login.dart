@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 import '../Classes/User.dart';
 import '../Auth/create_account.dart';
 import '../Client/home_client.dart';
@@ -20,6 +20,7 @@ class LoginState extends State<Login>{
   List<User> users;
 
   GlobalKey<FormState> formKey = GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   setEmail(String email){
   this.email = email;
@@ -41,12 +42,15 @@ class LoginState extends State<Login>{
             return HomeMerchant();
           }
       }));
+    }else{
+      scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('error email or password')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text('Login'),
       ),
@@ -74,6 +78,7 @@ class LoginState extends State<Login>{
                   SizedBox(height: 20,),
                   // password
                   TextFormField(
+                    obscureText: true,
                     decoration: InputDecoration(labelText: 'password'),
                     validator: (value){
                       if(value.isEmpty){

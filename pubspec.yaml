@@ -1,4 +1,4 @@
-name: project_ecommerce_v1
+name: project_ecommerce_v2
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -28,6 +28,10 @@ dependencies:
   path_provider: ^1.6.9
   image_picker: ^0.6.7
   flutter_native_image: ^0.0.5
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.6
+  uuid: 2.0.4
+  flutter_local_notifications: ^1.4.4+1
 
 dev_dependencies:
   flutter_test:

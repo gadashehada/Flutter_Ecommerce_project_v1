@@ -23,7 +23,7 @@ class ClientCartState extends State<ClientCart> {
   getImage(String base64){
       return base64Decode(base64);
   } 
-  deleteOrderSelected(int idProduct) async {
+  deleteOrderSelected(String idProduct) async {
     await DBHelper.dbHelper.deleteOrderFromCart(idProduct, LoginState.user.id);
     setState(() {});
   }

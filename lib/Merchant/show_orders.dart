@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 import '../Classes/Product.dart';
 import '../Classes/User.dart';
 import '../Auth/login.dart';

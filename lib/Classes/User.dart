@@ -1,27 +1,27 @@
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 
 class User {
   String email;
   String password;
   String type;
   String name;
-  int id;
+  String id;
 
   User({this.email , this.password , this.name , this.type , this.id});
 
   factory User.fromJson(Map<String , dynamic> json){
     return User(
+      id: json[DBHelper.userId],
       email: json[DBHelper.userEmail],
       password: json[DBHelper.userPassword],
       name: json[DBHelper.userName],
-      type: json[DBHelper.userType],
-      id: json[DBHelper.userId]);
+      type: json[DBHelper.userType],);
   }
 
-  Map<String , dynamic> toMap(){
+  Map<String , dynamic> toMap(String userId){
     return {
+      DBHelper.userId : userId ,
       DBHelper.userEmail : this.email ,
-      DBHelper.userPassword : this.password ,
       DBHelper.userName : this.name ,
       DBHelper.userType : this.type
     };

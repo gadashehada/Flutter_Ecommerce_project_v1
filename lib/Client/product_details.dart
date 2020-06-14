@@ -24,7 +24,7 @@ class ProductDetailsState extends State<ProductDetails> {
       return base64Decode(base64);
   }
 
-  addProductToCart(int productId) async {
+  addProductToCart(String productId) async {
     Order order = Order.fromJson({
     DBHelper.orderProductId: productId ,
     DBHelper.orderUserId: LoginState.user.id ,

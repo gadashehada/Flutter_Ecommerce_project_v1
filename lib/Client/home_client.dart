@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:project_ecommerce_v1/DBHelper.dart';
+import 'package:project_ecommerce_v2/Auth/login.dart';
+import 'package:project_ecommerce_v2/DBHelper.dart';
 import '../Classes/Product.dart';
 import 'product_details.dart';
 import 'client_cart.dart';
@@ -26,14 +28,25 @@ class HomeClientState extends State<HomeClient> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
-        actions: <Widget>[IconButton(
-          icon: Icon(Icons.shopping_cart , color: Colors.white,),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.shopping_cart , color: Colors.white,),
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context){
+                return ClientCart();
+                }
+              ));
+            }) ,
+          IconButton(
+          icon: Icon(Icons.exit_to_app , color: Colors.white,),
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context){
-              return ClientCart();
-              }
-            ));
+            LoginState.user = null;
+            Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context){
+                return Login();
+                }
+              ));
           })]),
       body: Stack(
         children: <Widget>[
@@ -67,7 +80,7 @@ class HomeClientState extends State<HomeClient> {
                       return Stack(children: <Widget>[
                       // card categories item
                           Transform.translate(
-                            offset: Offset(24.0, 50.0),
+                            offset: Offset(24.0, 60.0),
                             child: Container(
                               width: 97.0,
                               height: 58.0,
@@ -92,7 +105,7 @@ class HomeClientState extends State<HomeClient> {
             }),          
           // text products
           Transform.translate(
-            offset: Offset(24.0, 130.0),
+            offset: Offset(24.0, 160.0),
             child: Text(
               'Products',
               style: TextStyle(
@@ -105,7 +118,7 @@ class HomeClientState extends State<HomeClient> {
             ),
           ),
           Transform.translate(
-            offset: Offset(8.0, 170.0),
+            offset: Offset(8.0, 200.0),
             child: ProductsItem(categoryName),
             )       
         ],
@@ -130,8 +143,16 @@ class ProductsItemState extends State<ProductsItem>{
     
   List<Product> products;
 
+  void initState(){
+    Firestore.instance.collection('products').snapshots().listen((querySnapshot){
+      products = querySnapshot.documentChanges.map((item) => Product.fromJson(item.document.data)).toList();
+      setState(() {});
+    });
+    DBHelper.dbHelper.listenToChangesIsAccepted(LoginState.user.id);
+    super.initState();
+  }
+
   getProducts() async {
-      print(HomeClientState.categoryName);
       return await DBHelper.dbHelper.getProductsWithSpecificCategory(HomeClientState.categoryName);
     }
   getImage(String base64){

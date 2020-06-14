@@ -16,6 +16,11 @@ class AddProduct extends StatefulWidget{
 
 class AddProductState extends State<AddProduct>{
 
+  var _controllerName = TextEditingController();
+  var _controllerPrice = TextEditingController();
+  var _controllerCategory = TextEditingController();
+  var _controllerDescription = TextEditingController();
+
   File _image;
   final picker = ImagePicker();
   String photoBase64;
@@ -26,6 +31,7 @@ class AddProductState extends State<AddProduct>{
   String productDescription;
 
   GlobalKey<FormState> formKey = GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   setProductName(String productName){
     this.productName = productName;
@@ -61,12 +67,20 @@ class AddProductState extends State<AddProduct>{
       DBHelper.productImageBased64: this.photoBase64,
       DBHelper.merchantId: LoginState.user.id
     });
-    await DBHelper.dbHelper.insertNewProduct(product);
+    bool result = await DBHelper.dbHelper.insertNewProduct(product);
+    if(result){
+      scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('product added success')));
+      _controllerName.clear();
+      _controllerPrice.clear();
+      _controllerDescription.clear();
+      _controllerCategory.clear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
         appBar: AppBar(
           title: Text('Add product'),
         ),
@@ -79,6 +93,7 @@ class AddProductState extends State<AddProduct>{
                 children: <Widget>[
                   // product name
                   TextFormField(
+                    controller: _controllerName,
                     decoration: InputDecoration(labelText: 'Product name'),
                     validator: (value){
                       if(value.isEmpty){
@@ -92,6 +107,7 @@ class AddProductState extends State<AddProduct>{
                   SizedBox(height: 20,),
                   // product price
                   TextFormField(
+                    controller: _controllerPrice,
                     decoration: InputDecoration(labelText: 'Product price'),
                     validator: (value){
                       if(value.isEmpty){
@@ -105,6 +121,7 @@ class AddProductState extends State<AddProduct>{
                   SizedBox(height: 20,),
                   // category name
                   TextFormField(
+                    controller: _controllerCategory,
                     decoration: InputDecoration(labelText: 'Product category'),
                     validator: (value){
                       if(value.isEmpty){
@@ -118,6 +135,7 @@ class AddProductState extends State<AddProduct>{
                   SizedBox(height: 20,),
                   // description
                   TextFormField(
+                    controller: _controllerDescription,
                     decoration: InputDecoration(labelText: 'Description'),
                     validator: (value){
                       if(value.isEmpty){
